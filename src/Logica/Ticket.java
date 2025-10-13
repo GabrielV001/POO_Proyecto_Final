@@ -7,11 +7,9 @@ public class Ticket {
     private Usuario usuario;
     private Departamento departamento;
 
-    // Constructor vacio
     public Ticket() {
     }
 
-    // Constructor nuevo
     public Ticket(String asunto, String descripcion, Usuario usuario, Departamento departamento) {
         this.asunto = asunto;
         this.descripcion = descripcion;
@@ -20,7 +18,6 @@ public class Ticket {
         this.departamento = departamento;
     }
 
-    // Constructor completo
     public Ticket(String asunto, String descripcion, String estado, Usuario usuario, Departamento departamento) {
         this.asunto = asunto;
         this.descripcion = descripcion;
@@ -29,9 +26,8 @@ public class Ticket {
         this.departamento = departamento;
     }
 
-    // Getters y Setters
     public String getAsunto() {
-        return asunto;
+        return this.asunto;
     }
 
     public void setAsunto(String asunto) {
@@ -39,7 +35,7 @@ public class Ticket {
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return this.descripcion;
     }
 
     public void setDescripcion(String descripcion) {
@@ -47,7 +43,7 @@ public class Ticket {
     }
 
     public String getEstado() {
-        return estado;
+        return this.estado;
     }
 
     public void setEstado(String estado) {
@@ -55,7 +51,7 @@ public class Ticket {
     }
 
     public Usuario getUsuario() {
-        return usuario;
+        return this.usuario;
     }
 
     public void setUsuario(Usuario usuario) {
@@ -63,17 +59,15 @@ public class Ticket {
     }
 
     public Departamento getDepartamento() {
-        return departamento;
+        return this.departamento;
     }
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
 
-    @Override
     public String toString() {
-        return "Ticket[asunto=" + asunto + ", descripcion=" + descripcion +
-                ", estado=" + estado + ", usuario=" + usuario +
-                ", departamento=" + departamento + "]";
+        String var10000 = this.asunto;
+        return "Ticket[asunto=" + var10000 + ", descripcion=" + this.descripcion + ", estado=" + this.estado + ", usuario=" + String.valueOf(this.usuario) + ", departamento=" + String.valueOf(this.departamento) + "]";
     }
 }

@@ -1,4 +1,3 @@
-// Usuario.java
 package Logica;
 
 public class Usuario {
@@ -8,11 +7,9 @@ public class Usuario {
     private String telefono;
     private String rol;
 
-    // Constructor vacio
     public Usuario() {
     }
 
-    // Constructor sin telefono
     public Usuario(String nombre, String correoElectronico, String contraseña, String rol) {
         this.nombre = nombre;
         this.correoElectronico = correoElectronico;
@@ -20,7 +17,6 @@ public class Usuario {
         this.rol = rol;
     }
 
-    // Constructor completo
     public Usuario(String nombre, String correoElectronico, String contraseña, String telefono, String rol) {
         this.nombre = nombre;
         this.correoElectronico = correoElectronico;
@@ -29,9 +25,8 @@ public class Usuario {
         this.rol = rol;
     }
 
-    // Getters y Setters
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     public void setNombre(String nombre) {
@@ -39,7 +34,7 @@ public class Usuario {
     }
 
     public String getCorreoElectronico() {
-        return correoElectronico;
+        return this.correoElectronico;
     }
 
     public void setCorreoElectronico(String correoElectronico) {
@@ -47,7 +42,7 @@ public class Usuario {
     }
 
     public String getContraseña() {
-        return contraseña;
+        return this.contraseña;
     }
 
     public void setContraseña(String contraseña) {
@@ -55,7 +50,7 @@ public class Usuario {
     }
 
     public String getTelefono() {
-        return telefono;
+        return this.telefono;
     }
 
     public void setTelefono(String telefono) {
@@ -63,16 +58,15 @@ public class Usuario {
     }
 
     public String getRol() {
-        return rol;
+        return this.rol;
     }
 
     public void setRol(String rol) {
         this.rol = rol;
     }
 
-    @Override
     public String toString() {
-        return "Usuario[nombre=" + nombre + ", correoElectronico=" + correoElectronico +
-                ", telefono=" + telefono + ", rol=" + rol + "]";
+        return "Usuario[nombre=" + this.nombre + ", correoElectronico=" + this.correoElectronico + ", telefono=" + this.telefono + ", rol=" + this.rol + "]";
     }
 }
+

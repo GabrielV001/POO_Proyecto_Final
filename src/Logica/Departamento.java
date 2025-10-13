@@ -6,17 +6,14 @@ public class Departamento {
     private String correoContacto;
     private String extensionTelefonica;
 
-    // Constructor vacio
     public Departamento() {
     }
 
-    // Constructor basico
     public Departamento(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    // Constructor completo
     public Departamento(String nombre, String descripcion, String correoContacto, String extensionTelefonica) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -24,9 +21,8 @@ public class Departamento {
         this.extensionTelefonica = extensionTelefonica;
     }
 
-    // Getters y Setters
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     public void setNombre(String nombre) {
@@ -34,7 +30,7 @@ public class Departamento {
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return this.descripcion;
     }
 
     public void setDescripcion(String descripcion) {
@@ -42,7 +38,7 @@ public class Departamento {
     }
 
     public String getCorreoContacto() {
-        return correoContacto;
+        return this.correoContacto;
     }
 
     public void setCorreoContacto(String correoContacto) {
@@ -50,16 +46,14 @@ public class Departamento {
     }
 
     public String getExtensionTelefonica() {
-        return extensionTelefonica;
+        return this.extensionTelefonica;
     }
 
     public void setExtensionTelefonica(String extensionTelefonica) {
         this.extensionTelefonica = extensionTelefonica;
     }
 
-    @Override
     public String toString() {
-        return "Departamento[nombre=" + nombre + ", descripcion=" + descripcion +
-                ", correoContacto=" + correoContacto + ", extensionTelefonica=" + extensionTelefonica + "]";
+        return "Departamento[nombre=" + this.nombre + ", descripcion=" + this.descripcion + ", correoContacto=" + this.correoContacto + ", extensionTelefonica=" + this.extensionTelefonica + "]";
     }
 }
