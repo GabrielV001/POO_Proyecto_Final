@@ -1,9 +1,13 @@
 package Logica;
 
+import Utilidades.EncriptadorContraseña;
+
 public class Usuario {
+    private int id;
     private String nombre;
     private String correoElectronico;
     private String contraseña;
+    private String sal;
     private String telefono;
     private String rol;
 
@@ -13,20 +17,42 @@ public class Usuario {
     public Usuario(String nombre, String correoElectronico, String contraseña, String rol) {
         this.nombre = nombre;
         this.correoElectronico = correoElectronico;
-        this.contraseña = contraseña;
+        this.sal = EncriptadorContraseña.generarSal();
+        this.contraseña = EncriptadorContraseña.encriptarContraseña(contraseña, this.sal);
         this.rol = rol;
     }
 
     public Usuario(String nombre, String correoElectronico, String contraseña, String telefono, String rol) {
         this.nombre = nombre;
         this.correoElectronico = correoElectronico;
-        this.contraseña = contraseña;
+        this.sal = EncriptadorContraseña.generarSal();
+        this.contraseña = EncriptadorContraseña.encriptarContraseña(contraseña, this.sal);
         this.telefono = telefono;
         this.rol = rol;
     }
 
+    // Constructor para cargar desde la base de datos
+    public Usuario(int id, String nombre, String correoElectronico, String contraseñaEncriptada,
+                   String sal, String telefono, String rol) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correoElectronico = correoElectronico;
+        this.contraseña = contraseñaEncriptada;
+        this.sal = sal;
+        this.telefono = telefono;
+        this.rol = rol;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
@@ -34,7 +60,7 @@ public class Usuario {
     }
 
     public String getCorreoElectronico() {
-        return this.correoElectronico;
+        return correoElectronico;
     }
 
     public void setCorreoElectronico(String correoElectronico) {
@@ -42,15 +68,24 @@ public class Usuario {
     }
 
     public String getContraseña() {
-        return this.contraseña;
+        return contraseña;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContraseña(String contraseñaPlana) {
+        this.sal = EncriptadorContraseña.generarSal();
+        this.contraseña = EncriptadorContraseña.encriptarContraseña(contraseñaPlana, this.sal);
+    }
+
+    public String getSal() {
+        return sal;
+    }
+
+    public void setSal(String sal) {
+        this.sal = sal;
     }
 
     public String getTelefono() {
-        return this.telefono;
+        return telefono;
     }
 
     public void setTelefono(String telefono) {
@@ -58,15 +93,24 @@ public class Usuario {
     }
 
     public String getRol() {
-        return this.rol;
+        return rol;
     }
 
     public void setRol(String rol) {
         this.rol = rol;
     }
 
+    public boolean verificarContraseña(String contraseñaIntento) {
+        String contraseñaEncriptada = EncriptadorContraseña.encriptarContraseña(contraseñaIntento, this.sal);
+        return this.contraseña.equals(contraseñaEncriptada);
+    }
+
+    @Override
     public String toString() {
-        return "Usuario[nombre=" + this.nombre + ", correoElectronico=" + this.correoElectronico + ", telefono=" + this.telefono + ", rol=" + this.rol + "]";
+        return "Usuario[id=" + id +
+                ", nombre=" + nombre +
+                ", correoElectronico=" + correoElectronico +
+                ", telefono=" + telefono +
+                ", rol=" + rol + "]";
     }
 }
-
