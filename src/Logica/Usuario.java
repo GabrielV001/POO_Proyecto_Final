@@ -1,7 +1,5 @@
 package Logica;
 
-import Utilidades.EncriptadorContraseña;
-
 public class Usuario {
     private int id;
     private String nombre;
