@@ -1,0 +1,146 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+skinparam packageStyle rectangle
+
+package "ui" {
+    class MenuPrincipal {
+        - {static} scanner: Scanner
+        + {static} main(args: String[]): void
+        - {static} menuUsuarios(): void
+        - {static} menuDepartamentos(): void
+        - {static} menuTickets(): void
+        - {static} menuDiccionarios(): void
+        - {static} registrarUsuario(): void
+        - {static} registrarDepartamento(): void
+        - {static} registrarTicket(): void
+        - {static} analizarTicket(): void
+        - {static} actualizarEstadoTicket(): void
+        - {static} listarUsuarios(): void
+        - {static} listarDepartamentos(): void
+        - {static} listarTickets(): void
+        - {static} gestionarDiccionarioEmocional(): void
+        - {static} gestionarDiccionarioTecnico(): void
+    }
+}
+
+package "Logica" {
+    class Usuario {
+        - id: int
+        - nombre: String
+        - correoElectronico: String
+        - contraseña: String
+        - sal: String
+        - telefono: String
+        - rol: String
+        + Usuario()
+        + Usuario(nombre, correo, contraseña, rol)
+        + Usuario(nombre, correo, contraseña, telefono, rol)
+        + getters()
+        + setters()
+        + verificarContraseña(contraseñaIntento: String): boolean
+        + toString(): String
+    }
+
+    class Departamento {
+        - nombre: String
+        - descripcion: String
+        - correoContacto: String
+        - extensionTelefonica: String
+        + Departamento()
+        + Departamento(nombre, descripcion)
+        + Departamento(nombre, descripcion, correoContacto, extensionTelefonica)
+        + getters()
+        + setters()
+        + toString(): String
+    }
+
+    class Ticket {
+        - asunto: String
+        - descripcion: String
+        - estado: String
+        - usuario: Usuario
+        - departamento: Departamento
+        + Ticket()
+        + Ticket(asunto, descripcion, usuario, departamento)
+        + Ticket(asunto, descripcion, estado, usuario, departamento)
+        + getters()
+        + setters()
+        + toString(): String
+    }
+
+    class AnalizadorBoW {
+        - {static} STOP_WORDS: List<String>
+        + {static} preprocesarTexto(texto: String): String[]
+        + {static} vectorizar(palabras: String[]): Map<String,Integer>
+        + {static} calcularPuntajesEmocionales(vector: Map, diccionario: Map): Map<String,Double>
+        + {static} calcularPuntajesTecnicos(vector: Map, diccionario: Map): Map<String,Double>
+        + {static} obtenerPalabrasFrecuentes(vector: Map, limite: int): List<Map.Entry>
+        + {static} calcularSimilitudCoseno(vector1: Map, vector2: Map): double
+    }
+
+    class DiccionarioEmocional {
+        - palabrasEmociones: Map<String,String>
+        + agregarPalabra(palabra: String, emocion: String): void
+        + eliminarPalabra(palabra: String): void
+        + analizarEmociones(vector: Map): Map<String,String>
+    }
+
+    class DiccionarioTecnico {
+        - palabrasCategorias: Map<String,String>
+        + agregarPalabra(palabra: String, categoria: String): void
+        + eliminarPalabra(palabra: String): void
+        + analizarCategoriaTecnica(vector: Map): Map<String,String>
+    }
+}
+
+package "Datos" {
+    class GestorDatos {
+        - {static} usuarios: List<Usuario>
+        - {static} departamentos: List<Departamento>
+        - {static} tickets: List<Ticket>
+        - {static} diccionarioEmocional: DiccionarioEmocional
+        - {static} diccionarioTecnico: DiccionarioTecnico
+        + {static} agregarUsuario(Usuario): void
+        + {static} obtenerUsuarios(): List<Usuario>
+        + {static} buscarUsuarioPorCorreo(correo: String): Usuario
+        + {static} agregarDepartamento(Departamento): void
+        + {static} obtenerDepartamentos(): List<Departamento>
+        + {static} buscarDepartamentoPorNombre(nombre: String): Departamento
+        + {static} agregarTicket(Ticket): void
+        + {static} obtenerTickets(): List<Ticket>
+        + {static} getDiccionarioEmocional(): DiccionarioEmocional
+        + {static} getDiccionarioTecnico(): DiccionarioTecnico
+        + {static} actualizarEstadoTicket(Ticket, estado: String): void
+        + {static} limpiarDatos(): void
+    }
+
+    class ConexionBD {
+        - {static} conexion: Connection
+        + {static} obtenerConexion(): Connection
+    }
+}
+
+package "Utilidades" {
+    class EncriptadorContraseña {
+        + {static} generarSal(): String
+        + {static} encriptarContraseña(contraseña: String, sal: String): String
+    }
+}
+
+' Relaciones
+MenuPrincipal --> GestorDatos
+Ticket "1" --> "1" Usuario
+Ticket "1" --> "1" Departamento
+GestorDatos --> ConexionBD
+GestorDatos "1" --> "*" Usuario
+GestorDatos "1" --> "*" Departamento
+GestorDatos "1" --> "*" Ticket
+GestorDatos "1" --> "1" DiccionarioEmocional
+GestorDatos "1" --> "1" DiccionarioTecnico
+Usuario ..> EncriptadorContraseña
+DiccionarioEmocional ..> AnalizadorBoW
+DiccionarioTecnico ..> AnalizadorBoW
+
+@enduml
